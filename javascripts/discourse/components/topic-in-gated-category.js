@@ -7,6 +7,7 @@ const enabledCategories = settings.enabled_categories
   .filter((id) => id);
 
 const enabledTags = settings.enabled_tags.split("|").filter(Boolean);
+const groups = settings.allowed_groups.split("|").map((id) => parseInt(id, 10));
 
 export default Component.extend({
   tagName: "",
@@ -36,7 +37,7 @@ export default Component.extend({
     if (
       (!this.categoryId && !gatedByTag) ||
       (enabledCategories.length === 0 && enabledTags.length === 0) ||
-      this.currentUser
+      (this.currentUser && this.currentUser.groups?.some((g) => groups.includes(g.id)))
     ) {
       return;
     }
@@ -50,5 +51,5 @@ export default Component.extend({
   @discourseComputed("hidden")
   shouldShow(hidden) {
     return !hidden;
-  },
+  }
 });

@@ -8,3 +8,12 @@ enabled_tags:
   list_type: tag
   default: ""
   description: "Choose which tags that users need to sign up for. The default is 'gated'."
+allowed_groups:
+  type: list
+  list_type: group
+  default: ""
+  description: "Choose which groups users need to be a member of to view the content."
+custom_button_link:
+  type: string
+  default: ""
+  description: "Choose a custom link for the button."
