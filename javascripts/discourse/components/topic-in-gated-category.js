@@ -1,29 +1,24 @@
 import Component from "@ember/component";
 import discourseComputed from "discourse-common/utils/decorators";
 
-let enabledCategoriesAnonymous,
-  enabledCategoriesUser,
-  enabledTagsAnonymous,
-  enabledTagsUser,
-  allowedGroups;
-
-function parserInt(setting) {
+const parserInt = (setting) => {
   return setting
     .split("|")
     .map((id) => parseInt(id, 10))
     .filter((id) => id);
-}
+};
 
-function parserBool(setting) {
+const parserBool = (setting) => {
   return setting.split("|").filter(Boolean);
-}
-function refreshSettings() {
-  enabledCategoriesAnonymous = parserInt(settings.enabled_categories);
-  enabledCategoriesUser = parserInt(settings.enabled_categories_user);
-  enabledTagsAnonymous = parserBool(settings.enabled_tags);
-  enabledTagsUser = parserBool(settings.enabled_tags_user);
-  allowedGroups = parserInt(settings.allowed_groups);
-}
+};
+
+const enabledCategoriesAnonymous = parserInt(settings.enabled_categories);
+const enabledCategoriesUser = parserInt(settings.enabled_categories_user);
+
+const enabledTagsAnonymous = parserBool(settings.enabled_tags);
+const enabledTagsUser = parserBool(settings.enabled_tags_user);
+
+const groups = parserInt(settings.allowed_groups);
 
 export default Component.extend({
   tagName: "",
@@ -31,7 +26,6 @@ export default Component.extend({
 
   didInsertElement() {
     this._super(...arguments);
-    refreshSettings();
     this.recalculate();
   },
 
@@ -61,7 +55,7 @@ export default Component.extend({
       (!this.categoryId && !gatedByTag) ||
       (enabledCategories.length === 0 && enabledTags.length === 0) ||
       (this.currentUser &&
-        this.currentUser.groups?.some((g) => allowedGroups.includes(g.id)))
+        this.currentUser.groups?.some((g) => groups.includes(g.id)))
     ) {
       return;
     }
