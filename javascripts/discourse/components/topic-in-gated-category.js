@@ -1,24 +1,13 @@
 import Component from "@ember/component";
 import discourseComputed from "discourse-common/utils/decorators";
 
-const parserInt = (setting) => {
-  return setting
-    .split("|")
-    .map((id) => parseInt(id, 10))
-    .filter((id) => id);
-};
+const enabledCategories = settings.enabled_categories
+  .split("|")
+  .map((id) => parseInt(id, 10))
+  .filter((id) => id);
 
-const parserBool = (setting) => {
-  return setting.split("|").filter(Boolean);
-};
-
-const enabledCategoriesAnonymous = parserInt(settings.enabled_categories);
-const enabledCategoriesUser = parserInt(settings.enabled_categories_user);
-
-const enabledTagsAnonymous = parserBool(settings.enabled_tags);
-const enabledTagsUser = parserBool(settings.enabled_tags_user);
-
-const groups = parserInt(settings.allowed_groups);
+const enabledTags = settings.enabled_tags.split("|").filter(Boolean);
+const groups = settings.allowed_groups.split("|").map((id) => parseInt(id, 10));
 
 export default Component.extend({
   tagName: "",
@@ -39,23 +28,16 @@ export default Component.extend({
   },
 
   recalculate() {
-    const enabledTags = this.currentUser
-      ? enabledTagsUser
-      : enabledTagsAnonymous;
-    const enabledCategories = this.currentUser
-      ? enabledCategoriesUser
-      : enabledCategoriesAnonymous;
-    const gatedByTag = this.tags?.some((t) => enabledTags.includes(t));
-
     // do nothing if:
     // a) topic does not have a category and does not have a gated tag
     // b) component setting is empty
-    // c) user is logged in and is in a group that is allowed to see the topic
+    // c) user is logged in
+    const gatedByTag = this.tags?.some((t) => enabledTags.includes(t));
+
     if (
       (!this.categoryId && !gatedByTag) ||
       (enabledCategories.length === 0 && enabledTags.length === 0) ||
-      (this.currentUser &&
-        this.currentUser.groups?.some((g) => groups.includes(g.id)))
+      (this.currentUser && this.currentUser.groups?.some((g) => groups.includes(g.id)))
     ) {
       return;
     }
@@ -69,5 +51,5 @@ export default Component.extend({
   @discourseComputed("hidden")
   shouldShow(hidden) {
     return !hidden;
-  },
+  }
 });
