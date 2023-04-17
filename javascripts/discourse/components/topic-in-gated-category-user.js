@@ -49,8 +49,8 @@ export default Component.extend({
     if (
       (!this.categoryId && !gatedByTag) ||
       (enabledCategoriesUser.length === 0 && enabledTagsUser.length === 0) ||
-      !this.currentUser ||
-      this.currentUser.groups?.some((g) => allowedGroups.includes(g.id))
+      (this.currentUser &&
+        this.currentUser.groups?.some((g) => allowedGroups.includes(g.id)))
     ) {
       return;
     }
