@@ -1,6 +1,6 @@
 {
-  "about_url": "https://github.com/Arkshine/discourse-gated-topics-in-category/blob/main/README.md",
-  "license_url": "https://github.com/Arkshine/discourse-gated-topics-in-category/blob/main/LICENSE",
+  "about_url": null,
+  "license_url": null,
   "assets": {},
   "name": "discourse-gated-topics-in-category",
   "component": true
