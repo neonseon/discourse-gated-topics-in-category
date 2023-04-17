@@ -1,13 +1,3 @@
-enabled_categories:
-  type: list
-  list_type: category
-  default: ""
-  description: "Choose which categories that users need to sign up for."
-enabled_tags:
-  type: list
-  list_type: tag
-  default: ""
-  description: "Choose which tags that users need to sign up for. The default is 'gated'."
 enabled_categories_user:
   type: list
   list_type: category
