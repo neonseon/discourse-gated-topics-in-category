@@ -18,7 +18,7 @@ acceptance("Gated Topics - Anonymous", function (needs) {
     await visit("/t/internationalization-localization/280");
 
     assert.ok(
-      query(".topic-in-gated-category .custom-gated-topic-content"),
+      query(".topic-in-gated-group .custom-gated-topic-content"),
       "gated category prompt shown for anons on selected category"
     );
   });
@@ -27,7 +27,7 @@ acceptance("Gated Topics - Anonymous", function (needs) {
     await visit("/t/34");
 
     assert.notOk(
-      query(".topic-in-gated-category .custom-gated-topic-content"),
+      query(".topic-in-gated-group .custom-gated-topic-content"),
       "gated category prompt shown for anons on selected category"
     );
   });
@@ -36,7 +36,7 @@ acceptance("Gated Topics - Anonymous", function (needs) {
     await visit("/t/2480");
 
     assert.ok(
-      query(".topic-in-gated-category .custom-gated-topic-content"),
+      query(".topic-in-gated-group .custom-gated-topic-content"),
       "gated category prompt shown for anons on topic with selected tag"
     );
   });
@@ -59,7 +59,7 @@ acceptance("Gated Topics - Logged In", function (needs) {
     await visit("/t/internationalization-localization/280");
 
     assert.notOk(
-      query(".topic-in-gated-category .custom-gated-topic-content"),
+      query(".topic-in-gated-group .custom-gated-topic-content"),
       "gated category prompt not shown on selected category"
     );
   });
@@ -68,7 +68,7 @@ acceptance("Gated Topics - Logged In", function (needs) {
     await visit("/t/2480");
 
     assert.notOk(
-      query(".topic-in-gated-category .custom-gated-topic-content"),
+      query(".topic-in-gated-group .custom-gated-topic-content"),
       "gated category prompt not shown on topic with selected tag"
     );
   });
