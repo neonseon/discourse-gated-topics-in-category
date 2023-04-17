@@ -1,6 +1,6 @@
 {
-  "name": "discourse-gated-topics-in-category (user only)",
-  "version": "1.2.0",
+  "name": "discourse-gated-topics-in-category",
+  "version": "1.1.1",
   "repository": "https://github.com/discourse/discourse-gated-topics-in-category",
   "author": "ella, Arkshine",
   "license": "MIT",
